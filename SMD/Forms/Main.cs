@@ -201,53 +201,9 @@ namespace SMD
                     infolb.Text = "Shows song playing in Spotify.";
                     playerLink.Text = "Open Spotify";
                     break;
-                case MusicPlayers.Grooveshark:
-                    infolb.Text = "Shows song playing in Grooveshark. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
-                    playerLink.Text = "Open Grooveshark";
-                    break;
                 case MusicPlayers.Youtube:
                     infolb.Text = "Shows song playing in Youtube. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
                     playerLink.Text = "Open Youtube";
-                    break;
-                case MusicPlayers.Soundcloud:
-                    infolb.Text = "Shows song playing in Soundcloud. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
-                    playerLink.Text = "Open Soundcloud";
-                    break;
-                case MusicPlayers.Pandora:
-                    infolb.Text = "Shows song playing in Pandora. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
-                    playerLink.Text = "Open Pandora";
-                    break;
-                case MusicPlayers.Plug:
-                    infolb.Text = "Shows song playing in Plug. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
-                    playerLink.Text = "Open Plug";
-                    break;
-                case MusicPlayers.Zaycev:
-                    infolb.Text = "Shows song playing in Zaycev. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
-                    playerLink.Text = "Open Zaycev";
-                    break;
-                case MusicPlayers.EightTracks:
-                    infolb.Text = "Shows song playing in 8Tracks. Must be active tab in Chrome or Firefox and requires applet to run correctly.";
-                    playerLink.Text = "Open 8Tracks";
-                    break;
-                case MusicPlayers.iTunes:
-                    infolb.Text = "Shows song playing in iTunes.";
-                    playerLink.Text = "Open iTunes";
-                    break;
-                case MusicPlayers.Nightbot:
-                    infolb.Text = "Shows song playing in Nightbot.";
-                    playerLink.Text = "Open Nightbot";
-                    break;
-                case MusicPlayers.Zune:
-                    infolb.Text = "Shows song playing in Zune.";
-                    playerLink.Text = "Open Zune";
-                    break;
-                case MusicPlayers.Jriver:
-                    infolb.Text = "Shows song playing in Jriver Media Center.";
-                    playerLink.Text = "Open Jriver Media Center";
-                    break;
-                case MusicPlayers.WindowsMP:
-                    infolb.Text = "Shows song playing in Windows Media PPlayer. ";
-                    playerLink.Text = "Open Windows Media Player";
                     break;
             }
         }
@@ -275,7 +231,7 @@ namespace SMD
                     Process.Start("Winamp");
                     break;
                 case MusicPlayers.VLC:
-                    Process.Start("VLC");
+                    Process.Start(@"C:\Program Files\VideoLAN\VLC\vlc.exe");
                     break;
                 case MusicPlayers.Spotify:
                     Process.Start("spotify");
@@ -285,36 +241,6 @@ namespace SMD
                     break;
                 case MusicPlayers.Youtube:
                     Process.Start("https://www.youtube.com/");
-                    break;
-                case MusicPlayers.Soundcloud:
-                    Process.Start("https://soundcloud.com/");
-                    break;
-                case MusicPlayers.Pandora:
-                    Process.Start("http://www.pandora.com/");
-                    break;
-                case MusicPlayers.Plug:
-                    Process.Start("https://plug.dj/");
-                    break;
-                case MusicPlayers.Zaycev:
-                    Process.Start("http://www.zaycev.fm/");
-                    break;
-                case MusicPlayers.EightTracks:
-                    Process.Start("http://8tracks.com/");
-                    break;
-                case MusicPlayers.iTunes:
-                    Process.Start("iTunes");
-                    break;
-                case MusicPlayers.Nightbot:
-                    Process.Start("Nightbot");
-                    break;
-                case MusicPlayers.Zune:
-                    Process.Start("Zune");
-                    break;
-                case MusicPlayers.Jriver:
-                    Process.Start("Jriver");
-                    break;
-                case MusicPlayers.WindowsMP:
-                    Process.Start("wmplayer");
                     break;
             }
             }
@@ -342,47 +268,48 @@ namespace SMD
             if (song.Title != "None")
             {
                 string ifreg = @"(?<=\[if\()(.*?)\)\](.*?)\[\/if\]";
-                string ouput = Properties.Settings.Default.OutFormat;
+                string output = Properties.Settings.Default.OutFormat;
 
                 for (int i = 0; i < 4; i++)
                 {
                     Regex r = new Regex(ifreg, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                    Match m = r.Match(ouput);
+                    Match m = r.Match(output);
 
                     if (m.Success)
                     {
                         if (m.Groups[1].ToString().Contains("[Artist]"))
                         {
                             if (String.IsNullOrEmpty(song.Artist))
-                                ouput = ouput.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", "");
+                                output = output.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", "");
                             else
-                                ouput = ouput.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", m.Groups[2].ToString().Replace("[Artist]", song.Artist));
+                                output = output.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", m.Groups[2].ToString().Replace("[Artist]", song.Artist));
                         }
                         else if (m.Groups[1].ToString().Contains("[Title]"))
                         {
                             if (String.IsNullOrEmpty(song.Title))
-                                ouput = ouput.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", "");
+                                output = output.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", "");
                             else
-                                ouput = ouput.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", m.Groups[2].ToString().Replace("[Title]", song.Title));
+                                output = output.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", m.Groups[2].ToString().Replace("[Title]", song.Title));
                         }
                         else if (m.Groups[1].ToString().Contains("[Album]"))
                         {
                             if (String.IsNullOrEmpty(song.Album))
-                                ouput = ouput.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", "");
+                                output = output.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", "");
                             else
-                                ouput = ouput.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", m.Groups[2].ToString().Replace("[Album]", song.Album));
+                                output = output.Replace("[if(" + m.Groups[1].ToString() + ")]" + m.Groups[2].ToString() + "[/if]", m.Groups[2].ToString().Replace("[Album]", song.Album));
                         }
                     }
                 }
 
-                ouput = ouput.Replace("[Artist]", song.Artist);
-                ouput = ouput.Replace("[Title]", song.Title);
-                ouput = ouput.Replace("[Album]", song.Album);
-                ouput = ouput.Replace("  ", " ");
+                output = output.Replace("[Artist]", song.Artist);
+                output = output.Replace("[Title]", song.Title);
+                output = output.Replace("[Album]", song.Album);
+                output = output.Replace("  ", " ");
+                output = output.Replace("<br/>", "\n\r");
 
                 try
                 {
-                    File.WriteAllText(Properties.Settings.Default.OutputFile, ouput);
+                    File.WriteAllText(Properties.Settings.Default.OutputFile, output);
                 }
                 catch (Exception ex) { }
             }

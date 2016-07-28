@@ -17,7 +17,7 @@ namespace SMD
 
     public class Player
     {
-        [XmlElement("Nmae")]
+        [XmlElement("Name")]
         public string Name { get; set; }
 
         [XmlElement("Type")]

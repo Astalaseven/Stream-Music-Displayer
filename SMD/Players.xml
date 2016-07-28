@@ -1,83 +1,53 @@
 ﻿<?xml version="1.0"?>
 <PlayerList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Player>
-    <Nmae>Foobar2000</Nmae>
+    <Name>Foobar2000</Name>
     <Type>Foobar2000</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>AIMP3</Nmae>
+    <Name>AIMP3</Name>
     <Type>AIMP3</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>Winamp</Nmae>
+    <Name>Winamp</Name>
     <Type>Winamp</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>VLC</Nmae>
+    <Name>VLC</Name>
     <Type>VLC</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>Windows Media Player</Nmae>
+    <Name>Windows Media Player</Name>
     <Type>WindowsMP</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>Spotify</Nmae>
+    <Name>Spotify</Name>
     <Type>Spotify</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>iTunes</Nmae>
-    <Type>iTunes</Type>
-    <Enabled>true</Enabled>
-  </Player>
-  <Player>
-    <Nmae>Media Monkey</Nmae>
+    <Name>Media Monkey</Name>
     <Type>MediaMonkey</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>Media Player Classic Home Cinema (mpc-hc)</Nmae>
+    <Name>Media Player Classic Home Cinema (mpc-hc)</Name>
     <Type>MPC</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>*Grooveshark</Nmae>
+    <Name>*Grooveshark</Name>
     <Type>Grooveshark</Type>
     <Enabled>true</Enabled>
   </Player>
   <Player>
-    <Nmae>*Youtube</Nmae>
+    <Name>*Youtube</Name>
     <Type>Youtube</Type>
-    <Enabled>true</Enabled>
-  </Player>
-  <Player>
-    <Nmae>*Soundcloud</Nmae>
-    <Type>Soundcloud</Type>
-    <Enabled>true</Enabled>
-  </Player>
-  <Player>
-    <Nmae>*Pandora</Nmae>
-    <Type>Pandora</Type>
-    <Enabled>true</Enabled>
-  </Player>
-  <Player>
-    <Nmae>*Plug.dj</Nmae>
-    <Type>Plug</Type>
-    <Enabled>true</Enabled>
-  </Player>
-  <Player>
-    <Nmae>*Zaycev.fm</Nmae>
-    <Type>Zaycev</Type>
-    <Enabled>true</Enabled>
-  </Player>
-  <Player>
-    <Nmae>*8tracks</Nmae>
-    <Type>EightTracks</Type>
     <Enabled>true</Enabled>
   </Player>
 </PlayerList>

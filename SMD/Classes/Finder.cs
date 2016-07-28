@@ -20,7 +20,6 @@ namespace SMD
         WindowsMP,
         Spotify,
         Pandora,
-        iTunes,
         MediaMonkey,
         Zune,
         Jriver,
@@ -183,117 +182,7 @@ namespace SMD
                         }
                     }
                     break;
-                //Soundcloud
-                case MusicPlayers.Soundcloud:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        Regex r = new Regex(@"(?<=Soundcloud - )(.*?) - (.*?) - ", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                        Match m = r.Match(p.Title);
-                        
-                        if (m.Success)
-                        {
-                            song = new Song(m.Groups[1].ToString().Replace("  ", ""), m.Groups[2].ToString().Replace("  ", ""));
-                        }
-                    }
-                    break;
-                //Pandora
-                case MusicPlayers.Pandora:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        Regex r = new Regex(@"(?<=Pandora - )(.*?) - (.*?) -", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                        Match m = r.Match(p.Title);
-                        
-                        if (m.Success)
-                        {
-                            song = new Song(m.Groups[2].ToString().Replace("  ", ""), m.Groups[1].ToString().Replace("  ", ""));
-                        }
-                    }
-                    break;
-                //Plug.dj
-                case MusicPlayers.Plug:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        Regex r = new Regex(@"(?<=Plug.dj - )(.*?) - (.*?) - (.*?) -", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                        Match m = r.Match(p.Title);
 
-                        if (m.Success)
-                        {
-                            MessageBox.Show(m.Groups[1].ToString());
-                            song = new Song(m.Groups[2].ToString().Replace("  ", ""), m.Groups[1].ToString().Replace("  ", ""), m.Groups[3].ToString().Replace("  ", ""));
-                        }
-                        else
-                        {
-                            Regex r2 = new Regex(@"(?<=Plug.dj - )(.*?) - (.*?) - ", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                            Match m2 = r2.Match(p.Title);
-
-                            if (m2.Groups[1].ToString() != "")
-                            {
-                                song = new Song(m2.Groups[2].ToString().Replace("  ", ""), m2.Groups[1].ToString().Replace("  ", ""));
-                            }
-                        }
-                    }
-                    break;
-                //Zaycev.fm
-                case MusicPlayers.Zaycev:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        Regex r = new Regex(@"(?<=Zaycev - )(.*?)  -  (.*?) -", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                        Match m = r.Match(p.Title);
-                        
-                        if (m.Success)
-                        {
-                            song = new Song(m.Groups[1].ToString().Replace("  ", ""), m.Groups[2].ToString().Replace("  ", ""));
-                        }
-                    }
-                    break;
-                //8Tracks
-                case MusicPlayers.EightTracks:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        Regex r = new Regex(@"(?<=tracks - )(.*?) - (.*?) -", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                        Match m = r.Match(p.Title);
-                        
-                        //artist, title, album
-                        if (m.Success)
-                        {
-                            song = new Song(m.Groups[2].ToString().Replace("  ", ""), m.Groups[1].ToString().Replace("  ", ""));
-                        }
-                    }
-                    break;
-
-                //
-                //Custom APIs
-                //
-                case MusicPlayers.iTunes:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        API.iTunes info = new API.iTunes();
-                        song =  info.GetCurrentPlayingSong();
-                    }
-                    break;
-                case MusicPlayers.Nightbot:
-
-                    break;
-                case MusicPlayers.Zune:
-
-                    break;
-                case MusicPlayers.Jriver:
-
-                    break;
-                case MusicPlayers.WindowsMP:
-                    p = getProcess(player);
-                    if (p.Player != MusicPlayers.None)
-                    {
-                        API.WMPSongInfo info = new API.WMPSongInfo();
-                        song =  info.GetCurrentPlayingSong();
-                    }
-                break;
             }
 
             return song;
@@ -351,10 +240,6 @@ namespace SMD
                     else if (Proc.ProcessName.Contains("wmplayer"))
                         ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.WindowsMP));
 
-                    //iTunes
-                    else if (Proc.ProcessName.Contains("iTunes"))
-                        ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.iTunes));
-
 
                     //Browsers
                     else if (Proc.ProcessName.Contains("chrome") || Proc.ProcessName.Contains("firefox"))
@@ -366,26 +251,6 @@ namespace SMD
                         //Youtube
                         else if (Proc.MainWindowTitle.ToLower().Contains("youtube"))
                             ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.Youtube));
-
-                        //Pandora
-                        else if (Proc.MainWindowTitle.ToLower().Contains("pandora"))
-                            ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.Pandora));
-
-                        //Soundcloud
-                        else if (Proc.MainWindowTitle.ToLower().Contains("soundcloud"))
-                            ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.Soundcloud));
-
-                        //Plug.dj
-                        else if (Proc.MainWindowTitle.ToLower().Contains("plug"))
-                            ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.Plug));
-
-                        //Zaycev.fm
-                        else if (Proc.MainWindowTitle.ToLower().Contains("zaycev"))
-                            ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.Zaycev));
-
-                        //8tracks
-                        else if (Proc.MainWindowTitle.ToLower().Contains("8tracks"))
-                            ProcessList.Add(new ProcessInfo(Proc.ProcessName, Proc.MainWindowTitle, Proc.Id, MusicPlayers.EightTracks));
                     }
                 }
             }
