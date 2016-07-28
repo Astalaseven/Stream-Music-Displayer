@@ -12,6 +12,7 @@ Only made some fixes to make it work with VLC.
 Changes include:
 
 - VLC path added
+- Newlines displayed by using `<br/>` code in output text
 - Remove iTunes dependencies blocking the build
 - Deletion of useless code for my usage
 - Typos
